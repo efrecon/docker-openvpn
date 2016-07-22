@@ -37,6 +37,7 @@ nobind
 dev $OVPN_DEVICE
 key-direction 1
 remote-cert-tls server
+$OVPN_ADDITIONAL_CLIENT_CONFIG
 
 remote $OVPN_CN $OVPN_PORT $OVPN_PROTO
 "
@@ -62,7 +63,6 @@ key ${cn}.key
 ca ca.crt
 cert ${cn}.crt
 tls-auth ta.key 1
-$OVPN_ADDITIONAL_CLIENT_CONFIG
 "
     fi
 

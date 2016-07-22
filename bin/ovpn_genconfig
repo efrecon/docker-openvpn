@@ -78,12 +78,13 @@ OVPN_TLS_CIPHER=''
 OVPN_CIPHER=''
 OVPN_AUTH=''
 OVPN_EXTRA_CONFIG=''
+OVPN_ADDITIONAL_CLIENT_CONFIG=''
 
 # Import defaults if present
 [ -r "$OVPN_ENV" ] && source "$OVPN_ENV"
 
 # Parse arguments
-while getopts ":a:e:C:T:r:s:du:cp:n:DNmf:tz2" opt; do
+while getopts ":a:e:C:T:r:s:du:cp:n:DNmf:tz2x:" opt; do
     case $opt in
         a)
             OVPN_AUTH="$OPTARG"
@@ -139,6 +140,9 @@ while getopts ":a:e:C:T:r:s:du:cp:n:DNmf:tz2" opt; do
         f)
             OVPN_FRAGMENT=$OPTARG
             ;;
+        x)
+            OVPN_ADDITIONAL_CLIENT_CONFIG=$OPTARG
+            ;;
         \?)
             set +x
             echo "Invalid option: -$OPTARG" >&2
@@ -190,6 +194,7 @@ export OVPN_TLS_CIPHER OVPN_CIPHER OVPN_AUTH
 export OVPN_COMP_LZO
 export OVPN_OTP_AUTH
 export OVPN_FRAGMENT
+export OVPN_ADDITIONAL_CLIENT_CONFIG
 
 # Preserve config
 if [ -f "$OVPN_ENV" ]; then
